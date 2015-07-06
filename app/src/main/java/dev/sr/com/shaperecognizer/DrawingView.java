@@ -20,8 +20,6 @@ public class DrawingView extends View implements View.OnTouchListener,ShapeRecog
     private Path path;
     private Paint drawPaint;
 
-    private Path convexHullPath;
-    private Paint convexHullPaint;
     private ShapeRecognizer shapeRecognizer;
 
     private TextView nameText;
@@ -36,7 +34,6 @@ public class DrawingView extends View implements View.OnTouchListener,ShapeRecog
         initGestures();
 
         path = new Path();
-        convexHullPath = new Path();
         points = new LinkedList<PointF>();
         drawPaint = new Paint();
         drawPaint.setColor(0xFF660000);
@@ -45,8 +42,6 @@ public class DrawingView extends View implements View.OnTouchListener,ShapeRecog
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
-        convexHullPaint = new Paint(drawPaint);
-        convexHullPaint.setColor(0xff006600);
         setOnTouchListener(this);
     }
     @Override
@@ -61,7 +56,6 @@ public class DrawingView extends View implements View.OnTouchListener,ShapeRecog
         PointF p = new PointF(event.getX(),event.getY());
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                convexHullPath.reset();
                 path.reset();
                 while (!points.isEmpty()){
                     points.remove(0);
